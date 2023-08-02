@@ -1,5 +1,7 @@
 const express = require("express");
 require("express-async-errors");
+const morgan = require("morgan");
+
 require("dotenv").config();
 
 const connectDb = require("./config/dbConnection");
@@ -13,6 +15,7 @@ const app = express();
 connectDb();
 
 app.use(express.json());
+app.use(morgan("dev"));
 
 // Routes
 app.use("/api/v1/users", userRoute);
