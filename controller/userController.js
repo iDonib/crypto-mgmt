@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 const userModel = require("../model/userModel");
+const walletModel = require("../model/walletModel");
 
 // POST /api/v1/users/register
 const registerUser = asyncHandler(async (req, res) => {
@@ -113,7 +114,11 @@ const deleteUserById = asyncHandler(async (req, res) => {
 // GET /api/v1/users/get-user/:id
 const getUserById = asyncHandler(async (req, res) => {
   // Check if user exists and delete if exists
-  const user = await userModel.findById(req.params.id);
+  const user = await userModel.findById(req.params.id).populate({
+    path: "wallets",
+    model: walletModel,
+    select: "address balance",
+  });
 
   if (!user) {
     res.status(400).json({ status: "failed", error: "User not found!" });
@@ -125,7 +130,11 @@ const getUserById = asyncHandler(async (req, res) => {
 // GET /api/v1/users/get-all-users
 const getAllUsers = asyncHandler(async (req, res) => {
   // Check if user exists and delete if exists
-  const users = await userModel.find();
+  const users = await userModel.find().populate({
+    path: "wallets",
+    model: walletModel,
+    select: "address balance",
+  });
 
   if (!users) {
     res.status(400).json({ status: "failed", error: "User not found!" });
