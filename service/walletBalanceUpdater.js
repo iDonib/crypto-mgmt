@@ -3,6 +3,7 @@ const cron = require("node-cron");
 require("dotenv").config();
 const fetchWalletBalance = require("../helpers/fetchWalletBalance");
 const walletModel = require("../model/walletModel");
+const saveHistoricalData = require("../helpers/historicalHelper");
 
 const updateWalletBalances = async () => {
   try {
@@ -24,6 +25,11 @@ const updateWalletBalances = async () => {
 
     // Fetch and update balance for each wallet
     for (const wallet of wallets) {
+      // Save the current balance as historical data
+      await saveHistoricalData(wallet);
+
+      console.log("Saving historical data...");
+
       const balance = await fetchWalletBalance(wallet.address);
       wallet.balance = balance;
 
@@ -44,7 +50,7 @@ const updateWalletBalances = async () => {
 };
 
 // Schedule the cron job to run every 5 minutes
-cron.schedule("*/5 * * * *", async () => {
+cron.schedule("*/2 * * * *", async () => {
   const currentTime = new Date().toLocaleString();
   console.log(`Scheduled task running at: ${currentTime}`);
   console.log("Updating wallet balances...");

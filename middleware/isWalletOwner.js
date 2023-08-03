@@ -9,7 +9,7 @@ const isWalletOwner = asyncHandler(async (req, res, next) => {
   if (!token) {
     return res.status(404).json({
       status: "failed",
-      error: "Token not found!",
+      error: "Unauthorized. Please log in.",
     });
   }
 

@@ -24,15 +24,15 @@ const seedUsers = [
 const seedWallets = [
   {
     owner: "",
-    address: "0x3f08f17973ab4124c73200135e2b675ab2d263d9",
+    address: "0x161ba15a5f335c9f06bb5bbb0a9ce14076fbb645",
   },
   {
     owner: "",
-    address: "0x48414f981646de5d184502979e77c00c1da68b38",
+    address: "0xf89d7b9c864f589bbf53a82105107622b35eaa40",
   },
   {
     owner: "",
-    address: "0xd2a38d26e6d529ac6c64473c8e9ce24e6704a069",
+    address: "0xa180fe01b906a1be37be6c534a3300785b20d947",
   },
 ];
 

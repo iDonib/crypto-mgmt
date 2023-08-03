@@ -7,6 +7,7 @@ require("dotenv").config();
 const connectDb = require("./config/dbConnection");
 const userRoute = require("./routes/userRoutes");
 const walletRoute = require("./routes/walletRoutes");
+const reportRoute = require("./routes/reportRoutes");
 const errorHandler = require("./utils/errorHandler");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(morgan("dev"));
 // Routes
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/wallets", walletRoute);
+app.use("/api/v1/reports", reportRoute);
 
 // Error handler to avoid try..catch
 app.use(errorHandler);
