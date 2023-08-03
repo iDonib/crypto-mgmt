@@ -41,9 +41,7 @@ const addWallet = asyncHandler(async (req, res) => {
 
 // POST /api/v1/wallets/get-user-wallets
 const getUserWallets = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
-
-  const user = await userModel.findById(userId).populate({
+  const user = await userModel.findById(req.params.id).populate({
     path: "wallets",
     model: walletModel,
     select: "address balance",
@@ -56,6 +54,28 @@ const getUserWallets = asyncHandler(async (req, res) => {
   res.status(200).json({
     status: "Wallets fetched successfully!",
     wallets: user.wallets,
+  });
+});
+
+// GET /api/v1/wallets/get-wallet/:id
+const getWalletById = asyncHandler(async (req, res) => {
+  const wallet = await walletModel.findById(req.params.id).populate({
+    path: "owner",
+    model: userModel,
+    select: "name email",
+  });
+
+  // Check if wallet exists
+  if (!wallet) {
+    res.status(404).json({
+      status: "failed",
+      error: "Wallet not found!",
+    });
+  }
+
+  res.status(200).json({
+    status: "Wallet fetched successfully!",
+    wallet: wallet,
   });
 });
 
@@ -90,20 +110,21 @@ const deleteWallet = asyncHandler(async (req, res) => {
   // Check if wallet exists
   const wallet = await walletModel.findByIdAndDelete(req.params.id);
 
-  res.status(200).json({
-    status: "Wallet deleted successfully!",
-  });
-
   if (!wallet) {
     res.status(404).json({
       status: "failed",
       error: "Wallet not found",
     });
   }
+
+  res.status(200).json({
+    status: "Wallet deleted successfully!",
+  });
 });
 module.exports = {
   addWallet,
   getUserWallets,
   updateWalletBalance,
   deleteWallet,
+  getWalletById,
 };

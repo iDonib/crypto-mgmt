@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
+const jwt = require("jsonwebtoken");
 const userModel = require("../model/userModel");
 const walletModel = require("../model/walletModel");
 
@@ -30,9 +31,17 @@ const registerUser = asyncHandler(async (req, res) => {
     gender,
   });
 
+  // Generating JWT Token
+  const token = jwt.sign(
+    { email: email, id: newUser._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+
   res.status(201).json({
     status: "User created successfully!",
     newUser: newUser,
+    token: token,
   });
 });
 
@@ -62,9 +71,17 @@ const loginUser = asyncHandler(async (req, res) => {
     });
   }
 
+  // Generating JWT Token
+  const token = jwt.sign(
+    { email: email, id: userExists._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "1d" }
+  );
+
   res.status(200).json({
     status: "User logged in successfully!",
     user: userExists,
+    token: token,
   });
 });
 

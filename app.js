@@ -6,7 +6,7 @@ require("dotenv").config();
 
 const connectDb = require("./config/dbConnection");
 const userRoute = require("./routes/userRoutes");
-const walletRoute = require("./routes/walletRoute");
+const walletRoute = require("./routes/walletRoutes");
 const errorHandler = require("./utils/errorHandler");
 
 const app = express();
