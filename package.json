@@ -1,15 +1,16 @@
 {
   "name": "crypto-mgmt",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "a simple crypto management task",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "seed": "node seed/seed.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Donib",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.4.0",

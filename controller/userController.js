@@ -102,6 +102,15 @@ const updateUserById = asyncHandler(async (req, res) => {
     updatePayload.password = hashedPassword;
   }
 
+  // Check if email is already in use
+  const emailUsed = await userModel.findOne({ email: email });
+  if (emailUsed) {
+    return res.status(400).json({
+      status: "failed",
+      error: "Email is already in use or you are using the same email!",
+    });
+  }
+
   // Check if user exists or not and update if there is
   const user = await userModel.findByIdAndUpdate(req.params.id, updatePayload, {
     new: true,
