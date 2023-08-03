@@ -8,10 +8,17 @@ const userModel = require("../model/userModel");
 const seedDatabase = async () => {
   try {
     // Connect to MongoDB
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose
+      .connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      })
+      .then(() => {
+        console.log(`MongoDB connected successfully!`);
+      })
+      .catch((error) => {
+        console.log(`MongoDB connection failed! Error: ${error}`);
+      });
 
     // Clear existing data
     await Promise.all([userModel.deleteMany(), walletModel.deleteMany()]);
