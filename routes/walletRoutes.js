@@ -17,7 +17,7 @@ const walletRoute = express.Router();
 walletRoute.post("/add", validateAddWallet, addWallet);
 
 walletRoute.patch(
-  "/update-wallet-balance/:id",
+  "/update-wallet/:id",
   validateUpdateWallet,
   isWalletOwner,
   updateWallet

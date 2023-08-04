@@ -20,7 +20,7 @@ const addWallet = asyncHandler(async (req, res) => {
   const user = await userModel.findById(userId);
 
   if (!user) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    res.status(404).json({ status: "failed", error: "User not found!" });
   }
 
   const newWallet = await walletModel.create({

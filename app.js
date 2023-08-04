@@ -12,9 +12,6 @@ const errorHandler = require("./utils/errorHandler");
 
 const app = express();
 
-// Connect db
-connectDb();
-
 app.use(express.json());
 app.use(morgan("dev"));
 
@@ -26,8 +23,10 @@ app.use("/api/v1/reports", reportRoute);
 // Error handler to avoid try..catch
 app.use(errorHandler);
 
-const port = process.env.PORT || 8000;
+const port = process.env.NODE_ENV === "test" ? 9000 : process.env.PORT || 8000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server started at ${port}`);
 });
+
+module.exports = { app, server };

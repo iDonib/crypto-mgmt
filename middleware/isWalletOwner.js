@@ -15,7 +15,7 @@ const isWalletOwner = asyncHandler(async (req, res, next) => {
 
   token = token.split(" ")[1];
 
-  console.log(token);
+  // console.log(token);
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
 

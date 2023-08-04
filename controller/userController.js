@@ -85,7 +85,7 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
-// POST /api/v1/users/update/:id
+// PATCH /api/v1/users/update/:id
 const updateUserById = asyncHandler(async (req, res) => {
   const { name, email, password, contact, age, gender } = req.body;
 
@@ -125,7 +125,7 @@ const updateUserById = asyncHandler(async (req, res) => {
     .json({ status: "User updated successfully!", updatedInfo: user });
 });
 
-// POST /api/v1/users/update/:id
+// DELETE /api/v1/users/update/:id
 const deleteUserById = asyncHandler(async (req, res) => {
   // Check if user exists and delete if exists
   const user = await userModel.findByIdAndDelete(req.params.id);
