@@ -2,19 +2,25 @@ const express = require("express");
 const {
   addWallet,
   getUserWallets,
-  updateWalletBalance,
+  updateWallet,
   deleteWallet,
   getWalletById,
 } = require("../controller/walletController");
 const isWalletOwner = require("../middleware/isWalletOwner");
+const {
+  validateAddWallet,
+  validateUpdateWallet,
+} = require("../validator/walletValidator");
 
 const walletRoute = express.Router();
 
-walletRoute.post("/add", addWallet);
+walletRoute.post("/add", validateAddWallet, addWallet);
+
 walletRoute.patch(
   "/update-wallet-balance/:id",
+  validateUpdateWallet,
   isWalletOwner,
-  updateWalletBalance
+  updateWallet
 );
 walletRoute.delete("/delete/:id", isWalletOwner, deleteWallet);
 walletRoute.get("/get-user-wallets/:id", getUserWallets);

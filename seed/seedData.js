@@ -28,7 +28,7 @@ const seedWallets = [
   },
   {
     owner: "",
-    address: "0xf89d7b9c864f589bbf53a82105107622b35eaa40",
+    address: "0xf977814e90da44bfa03b6295a0616a897441acec",
   },
   {
     owner: "",

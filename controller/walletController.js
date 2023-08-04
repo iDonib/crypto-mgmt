@@ -80,20 +80,21 @@ const getWalletById = asyncHandler(async (req, res) => {
 });
 
 // POST /api/v1/wallets/update-wallet/:id
-const updateWalletBalance = asyncHandler(async (req, res) => {
-  const { balance } = req.body;
+const updateWallet = asyncHandler(async (req, res) => {
+  const { address, balance } = req.body;
 
   // Check if wallet exists
   const wallet = await walletModel.findByIdAndUpdate(
     req.params.id,
     {
+      address,
       balance,
     },
     { new: true }
   );
 
   res.status(200).json({
-    status: "Wallet balance updated successfully!",
+    status: "Wallet updated successfully!",
     updatedInfo: wallet,
   });
 
@@ -117,6 +118,12 @@ const deleteWallet = asyncHandler(async (req, res) => {
     });
   }
 
+  // console.log(wallet);
+  // pop the wallet id from the user's wallets array
+  const user = await userModel.findById(wallet.owner);
+  user.wallets.pop(wallet._id);
+  await user.save();
+
   res.status(200).json({
     status: "Wallet deleted successfully!",
   });
@@ -124,7 +131,7 @@ const deleteWallet = asyncHandler(async (req, res) => {
 module.exports = {
   addWallet,
   getUserWallets,
-  updateWalletBalance,
+  updateWallet,
   deleteWallet,
   getWalletById,
 };
