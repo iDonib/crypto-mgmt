@@ -1,9 +1,9 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const { app, server } = require("../app");
+const { app, server } = require("../src/app");
 
-const walletModel = require("../model/walletModel");
-const userModel = require("../model/userModel");
+const walletModel = require("../src//model/walletModel");
+const userModel = require("../src//model/userModel");
 
 // Function to clear the database and create a user
 beforeAll(async () => {

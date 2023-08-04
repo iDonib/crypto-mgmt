@@ -4,11 +4,11 @@
   "description": "a simple crypto management task",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
-    "seed": "node seed/seed.js",
-    "cron": "node service/walletBalanceUpdater.js",
-    "test": "jest"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "seed": "node src/seed/seed.js",
+    "cron": "node src/service/walletBalanceUpdater.js",
+    "test": "jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "Donib",
@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-async-errors": "^3.1.1",
@@ -27,7 +28,9 @@
     "mongoose": "^7.4.1",
     "morgan": "^1.10.0",
     "node-cron": "^3.0.2",
-    "supertest": "^6.3.3"
+    "supertest": "^6.3.3",
+    "swagger-autogen": "^2.23.5",
+    "swagger-ui-express": "^5.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

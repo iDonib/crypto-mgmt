@@ -1,8 +1,8 @@
 const request = require("supertest");
 const mongoose = require("mongoose");
-const { app, server } = require("../app");
+const { app, server } = require("../src/app");
 
-const userModel = require("../model/userModel");
+const userModel = require("../src/model/userModel");
 
 // Function to clear the database
 const clearDatabase = async () => {
