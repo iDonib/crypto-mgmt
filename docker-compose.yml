@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  # Node API Services
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: docker.env
+    environment:
+      WAIT_HOSTS: mongodb:27017
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo_db
+    links:
+      - mongo_db
+    networks:
+      - node-webapp-network
+
+  #MongoDB services
+  mongo_db:
+    image: mongo:latest
+    volumes:
+      - ~/mongo:/data/db
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=app_user
+      - MONGO_INITDB_ROOT_PASSWORD=app_password
+      - MONGO_INITDB_DATABASE=admin
+    ports:
+      - "27017:27017"
+    networks:
+      - node-webapp-network
+
+networks:
+  node-webapp-network:
+    driver: bridge
