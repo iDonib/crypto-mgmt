@@ -2,12 +2,12 @@ version: "3.9"
 
 services:
   # Node API Services
-  nodejs:
+  cryptoMgmt:
     build:
       context: .
       dockerfile: Dockerfile
     image: nodejs
-    container_name: nodejs
+    container_name: cryptoMgmt
     restart: unless-stopped
     env_file: docker.env
     environment:
@@ -23,7 +23,7 @@ services:
 
   #MongoDB services
   mongo_db:
-    image: mongo:latest
+    image: mongo:4.4
     volumes:
       - ~/mongo:/data/db
     container_name: mongodb
