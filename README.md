@@ -25,6 +25,9 @@ Before running the project, make sure you have the following installed on your m
 6. Start the server: `npm run dev`
 7. Run the cron service separately: `npm run cron`
 8. The server will be running on `http://localhost:8000`.
+9. Run `node src/swagger.js` to get the `swagger-output.json` file.
+10. Go to browser and hit this url: `http://localhost:8000/api-docs/` and you will see all the APIs of this project.
+11. Or, you can simply import the APIs in Postman by importing that `swagger-output.json`.
 
 ## Project Structure
 
