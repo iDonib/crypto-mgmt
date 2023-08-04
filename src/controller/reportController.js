@@ -8,7 +8,7 @@ const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
   const user = await userModel.findById(ownerId);
 
   if (!user) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    throw new Error("User not found!");
   }
 
   const numberOfWallets = user.wallets.length;

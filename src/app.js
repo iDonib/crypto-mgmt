@@ -13,21 +13,24 @@ const userRoute = require("./routes/userRoutes");
 const walletRoute = require("./routes/walletRoutes");
 const reportRoute = require("./routes/reportRoutes");
 const errorHandler = require("./utils/errorHandler");
+const { globalLimiter, routeLimiter } = require("./utils/rateLimiter");
 
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 app.use(morgan("dev"));
+app.use(globalLimiter);
 
 // Routes
 app.use("/api/v1/users", userRoute);
-app.use("/api/v1/wallets", walletRoute);
+app.use("/api/v1/wallets", routeLimiter, walletRoute);
 app.use("/api/v1/reports", reportRoute);
 
 // Swagger API
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
+// Rendering the homepage with README.md
 app.get("/", (req, res) => {
   fs.readFile("README.md", "utf8", (err, data) => {
     if (err) {
