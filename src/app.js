@@ -1,6 +1,7 @@
 const express = require("express");
-require("express-async-errors");
 const morgan = require("morgan");
+const fs = require("fs");
+const markdownIt = require("markdown-it");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./swagger-output.json");
@@ -26,6 +27,18 @@ app.use("/api/v1/reports", reportRoute);
 
 // Swagger API
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+app.get("/", (req, res) => {
+  fs.readFile("README.md", "utf8", (err, data) => {
+    if (err) {
+      res.status(500).send("Error reading the README.md file");
+    } else {
+      const md = new markdownIt();
+      const html = md.render(data);
+      res.send(html);
+    }
+  });
+});
 
 // Error handler to avoid try..catch
 app.use(errorHandler);
