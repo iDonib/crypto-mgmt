@@ -4,7 +4,7 @@ on: [pull_request, push]
 jobs:
   run-jest:
     runs-on: ubuntu-latest
-    environment: orgFeeder
+    environment: cryptoMgmt
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
