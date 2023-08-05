@@ -10,7 +10,7 @@ const addWallet = asyncHandler(async (req, res) => {
   const wallet = await walletModel.findOne({ address: address });
 
   if (wallet) {
-    res.status(400).json({
+    return res.status(400).json({
       status: "failed",
       error: "Wallet is already added!",
     });
@@ -119,7 +119,7 @@ const deleteWallet = asyncHandler(async (req, res) => {
   }
 
   // console.log(wallet);
-  // pop the wallet id from the user's wallets array
+  // Pop the wallet id from the user's wallets array
   const user = await userModel.findById(wallet.owner);
   user.wallets.pop(wallet._id);
   await user.save();
