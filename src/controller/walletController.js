@@ -20,7 +20,7 @@ const addWallet = asyncHandler(async (req, res) => {
   const user = await userModel.findById(userId);
 
   if (!user) {
-    res.status(404).json({ status: "failed", error: "User not found!" });
+    return res.status(404).json({ status: "failed", error: "User not found!" });
   }
 
   const newWallet = await walletModel.create({
@@ -48,7 +48,7 @@ const getUserWallets = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    return res.status(400).json({ status: "failed", error: "User not found!" });
   }
 
   res.status(200).json({
@@ -67,7 +67,7 @@ const getWalletById = asyncHandler(async (req, res) => {
 
   // Check if wallet exists
   if (!wallet) {
-    res.status(404).json({
+    return res.status(404).json({
       status: "failed",
       error: "Wallet not found!",
     });
@@ -99,7 +99,7 @@ const updateWallet = asyncHandler(async (req, res) => {
   });
 
   if (!wallet) {
-    res.status(404).json({
+    return res.status(404).json({
       status: "failed",
       error: "Wallet not found",
     });
@@ -112,7 +112,7 @@ const deleteWallet = asyncHandler(async (req, res) => {
   const wallet = await walletModel.findByIdAndDelete(req.params.id);
 
   if (!wallet) {
-    res.status(404).json({
+    return res.status(404).json({
       status: "failed",
       error: "Wallet not found",
     });

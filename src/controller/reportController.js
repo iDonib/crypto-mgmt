@@ -3,67 +3,70 @@ const userModel = require("../model/userModel");
 const asyncHandler = require("express-async-handler");
 
 // Function to get balance change for a specific time period
-const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
-  // Check if user exists
-  const user = await userModel.findById(ownerId);
+const getBalanceChangeForTimePeriod = asyncHandler(
+  async (startDate, endDate, ownerId) => {
+    // Check if user exists
+    const user = await userModel.findById(ownerId);
 
-  if (!user) {
-    throw new Error("User not found!");
-  }
+    if (!user) {
+      throw new Error("User not found!");
+    }
 
-  const historicalData = await historicalModel.find({
-    owner: ownerId,
-    updatedAt: {
-      $gte: startDate,
-      $lt: endDate,
-    },
-  });
+    const historicalData = await historicalModel
+      .find({
+        owner: ownerId,
+        updatedAt: {
+          $gte: startDate,
+          $lt: endDate,
+        },
+      })
+      .lean();
 
-  const walletLength = user.wallets.length;
-  if (historicalData.length <= walletLength) {
+    if (historicalData.length <= user.wallets.length) {
+      return {
+        ownerName: user.name,
+        balanceChange: 0,
+        balanceChangePercentage: 0,
+      };
+    }
+
+    // console.log(historicalData);
+
+    let initialBalance = 0;
+    let finalBalance = 0;
+
+    for (let i = 0; i < historicalData[0].numberOfWallets; i++) {
+      initialBalance += historicalData[i].balance;
+    }
+
+    let finalData = historicalData[historicalData.length - 1];
+    for (let i = 0; i < finalData.numberOfWallets; i++) {
+      finalBalance +=
+        historicalData[historicalData.length - finalData.numberOfWallets + i]
+          .balance;
+    }
+
+    // console.log("historicalData: ", historicalData);
+    console.log(
+      "initialBalance: ",
+      initialBalance,
+      "finalBalance: ",
+      finalBalance
+    );
+
+    const balanceChange = finalBalance - initialBalance;
+    const balanceChangePercentage = (
+      (balanceChange / initialBalance) *
+      100
+    ).toFixed(4);
+
     return {
       ownerName: user.name,
-      balanceChange: 0,
-      balanceChangePercentage: 0,
+      balanceChange,
+      balanceChangePercentage,
     };
   }
-
-  // console.log(historicalData);
-
-  let initialBalance = 0;
-  let finalBalance = 0;
-
-  for (let i = 0; i < historicalData[0].numberOfWallets; i++) {
-    initialBalance += historicalData[i].balance;
-  }
-
-  let finalData = historicalData[historicalData.length - 1];
-  for (let i = 0; i < finalData.numberOfWallets; i++) {
-    finalBalance +=
-      historicalData[historicalData.length - finalData.numberOfWallets + i]
-        .balance;
-  }
-
-  // console.log("historicalData: ", historicalData);
-  console.log(
-    "initialBalance: ",
-    initialBalance,
-    "finalBalance: ",
-    finalBalance
-  );
-
-  const balanceChange = finalBalance - initialBalance;
-  const balanceChangePercentage = (
-    (balanceChange / initialBalance) *
-    100
-  ).toFixed(4);
-
-  return {
-    ownerName: user.name,
-    balanceChange,
-    balanceChangePercentage,
-  };
-};
+);
 
 // Get total balance change by day
 // GET /api/v1/reports/get-report-by-day/:userId

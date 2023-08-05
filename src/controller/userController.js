@@ -53,7 +53,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const userExists = await userModel.findOne({ email: email });
 
   if (!userExists) {
-    res.status(404).json({
+    return res.status(404).json({
       status: "failed",
       error: "User not found with this email!",
     });
@@ -65,7 +65,7 @@ const loginUser = asyncHandler(async (req, res) => {
   // console.log("reached here", matchPassword);
 
   if (!matchPassword) {
-    res.status(400).json({
+    return res.status(400).json({
       status: "failed",
       error: "Invalid Credentials!",
     });
@@ -131,7 +131,7 @@ const deleteUserById = asyncHandler(async (req, res) => {
   const user = await userModel.findByIdAndDelete(req.params.id);
 
   if (!user) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    return res.status(400).json({ status: "failed", error: "User not found!" });
   }
 
   res.status(200).json({ status: "User deleted successfully!" });
@@ -147,7 +147,7 @@ const getUserById = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    return res.status(400).json({ status: "failed", error: "User not found!" });
   }
 
   res.status(200).json({ status: "User fetched successfully!", user: user });
@@ -163,7 +163,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
   });
 
   if (!users) {
-    res.status(400).json({ status: "failed", error: "User not found!" });
+    return res.status(400).json({ status: "failed", error: "User not found!" });
   }
 
   res.status(200).json({ status: "User fetched successfully!", users: users });
