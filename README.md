@@ -29,6 +29,7 @@ Before running the project, make sure you have the following installed on your m
 10. Go to browser and hit this url: `http://localhost:8000/api-docs/` and you will see all the APIs of this project.
 11. Or, you can simply import the APIs in Postman by importing that `swagger-output.json`.
 12. This backend is deployed live [here](https://crypto-mgmt.onrender.com)
+13. This app can also be found in DockerHub. [crypto-mgmt](https://hub.docker.com/r/idonib/crypto-mgmt)
 
 ## Project Structure
 
