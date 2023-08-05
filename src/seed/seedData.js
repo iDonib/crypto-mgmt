@@ -28,11 +28,11 @@ const seedWallets = [
   },
   {
     owner: "",
-    address: "0xf977814e90da44bfa03b6295a0616a897441acec",
+    address: "0xa180fe01b906a1be37be6c534a3300785b20d947",
   },
   {
     owner: "",
-    address: "0xa180fe01b906a1be37be6c534a3300785b20d947",
+    address: "0xf977814e90da44bfa03b6295a0616a897441acec",
   },
 ];
 

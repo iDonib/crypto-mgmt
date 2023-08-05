@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const walletModel = require("../model/walletModel");
 const userModel = require("../model/userModel");
+const fetchWalletBalance = require("../helpers/fetchWalletBalance");
 
 // POST /api/v1/wallets/add-wallet
 const addWallet = asyncHandler(async (req, res) => {
@@ -26,9 +27,8 @@ const addWallet = asyncHandler(async (req, res) => {
   const newWallet = await walletModel.create({
     owner: userId,
     address,
-    balance,
+    balance: balance || (await fetchWalletBalance(address)),
   });
-
   // Push the wallet id to the user's wallets array
   user.wallets.push(newWallet._id);
   await user.save();
