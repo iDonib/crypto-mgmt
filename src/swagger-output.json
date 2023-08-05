@@ -5,12 +5,25 @@
     "description": "This project is a backend application built with Node.js, Express and MongoDB. It provides APIs for handling users and crypto wallets and provides the reports based on wallet.",
     "version": "1.0.0"
   },
-  "host": "localhost:8000/api/v1",
+  "host": "localhost:8000",
   "basePath": "/",
   "schemes": [
     "http"
   ],
   "paths": {
+    "/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/v1/users/register": {
       "post": {
         "description": "",

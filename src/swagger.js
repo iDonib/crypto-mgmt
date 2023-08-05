@@ -6,7 +6,7 @@ const doc = {
     description:
       "This project is a backend application built with Node.js, Express and MongoDB. It provides APIs for handling users and crypto wallets and provides the reports based on wallet.",
   },
-  host: "localhost:8000/api/v1",
+  host: "localhost:8000",
   schemes: ["http"],
 };
 const outputFile = "./swagger-output.json";
