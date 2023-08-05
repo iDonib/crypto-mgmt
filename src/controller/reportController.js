@@ -11,8 +11,6 @@ const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
     throw new Error("User not found!");
   }
 
-  const numberOfWallets = user.wallets.length;
-
   const historicalData = await historicalModel.find({
     owner: ownerId,
     updatedAt: {
@@ -21,7 +19,8 @@ const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
     },
   });
 
-  if (historicalData.length < numberOfWallets) {
+  const walletLength = user.wallets.length;
+  if (historicalData.length <= walletLength) {
     return {
       ownerName: user.name,
       balanceChange: 0,
@@ -29,13 +28,20 @@ const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
     };
   }
 
+  // console.log(historicalData);
+
   let initialBalance = 0;
   let finalBalance = 0;
 
-  for (let i = 0; i < numberOfWallets; i++) {
+  for (let i = 0; i < historicalData[0].numberOfWallets; i++) {
     initialBalance += historicalData[i].balance;
+  }
+
+  let finalData = historicalData[historicalData.length - 1];
+  for (let i = 0; i < finalData.numberOfWallets; i++) {
     finalBalance +=
-      historicalData[historicalData.length - numberOfWallets + i].balance;
+      historicalData[historicalData.length - finalData.numberOfWallets + i]
+        .balance;
   }
 
   // console.log("historicalData: ", historicalData);

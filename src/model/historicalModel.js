@@ -15,6 +15,9 @@ const historicalSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  numberOfWallets: {
+    type: Number,
+  },
   updatedAt: {
     type: Date,
     required: true,
