@@ -19,13 +19,14 @@ const getBalanceChangeForTimePeriod = async (startDate, endDate, ownerId) => {
     },
   });
 
-  // if (historicalData.length < numberOfWallets) {
-  //   return {
-  //     ownerName: user.name,
-  //     balanceChange: 0,
-  //     balanceChangePercentage: 0,
-  //   };
-  // }
+  const walletLength = user.wallets.length;
+  if (historicalData.length <= walletLength) {
+    return {
+      ownerName: user.name,
+      balanceChange: 0,
+      balanceChangePercentage: 0,
+    };
+  }
 
   // console.log(historicalData);
 
