@@ -16,7 +16,6 @@ const userSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: [true, "Password is required."],
     },
 
     contact: String,
@@ -35,6 +34,12 @@ const userSchema = new mongoose.Schema(
         ref: "Wallet",
       },
     ],
+
+    googleId: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
   },
   { timestamps: true }
 );

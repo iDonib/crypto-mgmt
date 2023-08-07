@@ -14,6 +14,7 @@ const walletRoute = require("./routes/walletRoutes");
 const reportRoute = require("./routes/reportRoutes");
 const errorHandler = require("./utils/errorHandler");
 const { globalLimiter, routeLimiter } = require("./utils/rateLimiter");
+const router = require("./routes/authRoutes");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(globalLimiter);
 app.use("/api/v1/users", userRoute);
 app.use("/api/v1/wallets", routeLimiter, walletRoute);
 app.use("/api/v1/reports", reportRoute);
+app.use("/", router);
 
 // Swagger API
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
