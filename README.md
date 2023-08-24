@@ -17,19 +17,21 @@ Before running the project, make sure you have the following installed on your m
 2. Change the directory to project directory: `cd crypto-mgmt`
 3. Install dependencies: `npm install`
 4. Create an `.env` file in the root of the project based on the provided env.example file. Fill in the following values:  
-   `PORT=8000`  
-   `MONGO_URI="YOUR_MONGO_URI"`  
-   `JWT_SECRET="YOUR_JWT_SECRET"`  
-   `BSCSCAN_API_KEY="YOUR_BSCSCAN_API_KEY"`
-5. Run the seed: `npm run seed`
-6. Start the server: `npm run dev`
-7. Run the cron service separately: `npm run cron`
-8. The server will be running on `http://localhost:8000`.
-9. Run `node src/swagger.js` to get the `swagger-output.json` file.
-10. Go to browser and hit this url: `http://localhost:8000/api-docs/` and you will see all the APIs of this project.
-11. Or, you can simply import the APIs in Postman by importing that `swagger-output.json`.
-12. This backend is deployed live [here](https://crypto-mgmt.onrender.com)
-13. This app can also be found in DockerHub. [crypto-mgmt](https://hub.docker.com/r/idonib/crypto-mgmt)
+```
+   PORT=8000
+   MONGO_URI="YOUR_MONGO_URI"
+   JWT_SECRET="YOUR_JWT_SECRET" 
+   BSCSCAN_API_KEY="YOUR_BSCSCAN_API_KEY"
+```
+6. Run the seed: `npm run seed`
+7. Start the server: `npm run dev`
+8. Run the cron service separately: `npm run cron`
+9. The server will be running on `http://localhost:8000`.
+10. Run `node src/swagger.js` to get the `swagger-output.json` file.
+11. Go to browser and hit this url: `http://localhost:8000/api-docs/` and you will see all the APIs of this project.
+12. Or, you can simply import the APIs in Postman by importing that `swagger-output.json`.
+13. This backend is deployed live [here](https://crypto-mgmt.onrender.com)
+14. This app can also be found in DockerHub. [crypto-mgmt](https://hub.docker.com/r/idonib/crypto-mgmt)
 
 ## Project Structure
 
